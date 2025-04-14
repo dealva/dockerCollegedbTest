@@ -5,15 +5,26 @@ services:
     image: mysql:8.0
     container_name: college_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: college_db
-      MYSQL_USER: college_user
-      MYSQL_PASSWORD: college_password
-    ports:
-      - "3306:3306"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    # ports:
+    #   - "${MYSQL_PORT}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-    restart: always
+    restart: on-failure
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: college_phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - 8000:80
+    depends_on:
+      - mysql
+    restart: on-failure  
 
 volumes:
   mysql_data:

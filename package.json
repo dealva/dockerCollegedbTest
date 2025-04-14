@@ -1,0 +1,10 @@
+{
+    "name": "college_mysql",
+    "version": "1.0.0",
+    "scripts": {
+      "docker:up": "docker-compose --env-file .env up",
+      "docker:down": "docker-compose --env-file .env down",
+      "docker:logs": "docker-compose --env-file .env logs",
+      "docker:restart": "docker-compose --env-file .env restart mysql"
+    }
+}
